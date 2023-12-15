@@ -1,0 +1,39 @@
+# http://twilightfantasy.org
+
+BUILD_DIR=win32
+
+CC=/opt/mingw/bin/i386-mingw32-gcc
+MINGW_LIB_PATH=/opt/mingw/lib
+MINGW_INCLUDE_PATH=/opt/mingw/include
+
+#0x501 == WindowsXP
+
+CFLAGS=-DWINVER=0x501 -D_FILE_OFFSET_BITS=64 -c -Wall -Werror -mms-bitfields -Isrc -Isrc/ui/gtk\
+ -I$(MINGW_INCLUDE_PATH)/gtk-2.0 -I$(MINGW_LIB_PATH)/gtk-2.0/include \
+ -I$(MINGW_INCLUDE_PATH)/atk-1.0 -I$(MINGW_INCLUDE_PATH)/cairo -I$(MINGW_INCLUDE_PATH)/pango-1.0 \
+ -I$(MINGW_INCLUDE_PATH)/glib-2.0 -I$(MINGW_LIB_PATH)/glib-2.0/include -I$(MINGW_INCLUDE_PATH)/libpng12
+
+LDFLAGS=-mms-bitfields -L$(MINGW_LIB_PATH) -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 \
+ -lgdk_pixbuf-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lpango-1.0 -lcairo -lgobject-2.0 \
+ -lgmodule-2.0 -lglib-2.0 -lintl -lssl32 -leay32 -lws2_32 -lshlwapi
+
+COBJECTS:=$(patsubst src/%.c,build/$(BUILD_DIR)/%.o,$(wildcard src/*.c)) \
+  $(patsubst src/ui/gtk/%.c,build/$(BUILD_DIR)/ui/gtk/%.o,$(wildcard src/ui/gtk/*.c))
+
+
+EXECUTABLE=build/$(BUILD_DIR)/sdispatch.exe
+
+
+all: $(COBJECTS) $(EXECUTABLE)
+
+$(EXECUTABLE): $(COBJECTS)
+	$(CC) $(COBJECTS) $(LDFLAGS) -o $@
+
+build/$(BUILD_DIR)/%.o: src/%.c
+	$(CC) $(CFLAGS) $< -o $@
+
+build/$(BUILD_DIR)/ui/gtk/%.o: src/ui/gtk/%.c
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -v $(COBJECTS) $(EXECUTABLE)

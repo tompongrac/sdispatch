@@ -1,0 +1,126 @@
+INSTALLATION FROM SOURCE
+---------------------------------------------------------------------
+
+
+----] Contents
+
+  1 - Specific Platform Instructions
+    1.1 - Installation from source for Linux
+    1.2 - Installation from source for FreeBSD
+    1.3 - Installation from source for Windows
+
+
+----] 1 - Specific Platform Instructions
+
+See appropriate platform for details.
+
+
+----] 1.1 Installation from source for Linux
+
+To build:
+
+  $ make -f Makefile.linux
+
+To install:
+
+  # make -f Makefile.linux install
+
+To clean:
+
+  $ make -f Makefile.linux clean
+
+To uninstall:
+
+  # make -f Makefile.linux uninstall
+
+The following files will be (un)installed:
+
+  /usr/bin/sdispatch
+  /usr/share/sdispatch/ui.xml
+  /etc/sdispatch.conf
+
+
+----] 1.2 Installation from source for FreeBSD
+
+To build:
+
+  $ gmake -f Makefile.freebsd
+
+To install:
+
+  # gmake -f Makefile.freebsd install
+
+To clean:
+
+  $ gmake -f Makefile.freebsd clean
+
+To uninstall:
+
+  # gmake -f Makefile.freebsd uninstall
+
+The following files will be (un)installed:
+
+  /usr/bin/sdispatch
+  /usr/share/sdispatch/ui.xml
+  /etc/sdispatch.conf
+
+
+----] 1.3 Installation from source for Windows
+
+To build:
+
+  For Windows builds I have been using MinGW cross compiler for Linux. If
+  you want to compile it as I have you will need to install the following
+  development packages into the MinGW environment
+
+    - gtk+2.0
+    - openssl
+
+  You will need to set MINGW_LIB_PATH and MINGW_INCLUDE_PATH to the
+  appropriate directories in which you installed MinGW for the library path
+  and the include path respectfully. You can either do this by manually
+  editing the Makefile.win or adding MINGW_LIB_PATH=/path/to/lib to the
+  command line argument when issuing make.
+
+  $ make -f Makefile.windows
+
+To install:
+  
+  You will need to copy all the following files to an empty directory for
+  the project
+
+  intl.dll
+  jpeg62.dll
+  libatk-1.0-0.dll
+  libcairo-2.dll
+  libeay32.dll
+  libgdk-win32-2.0-0.dll
+  libgdk_pixbuf-2.0-0.dll
+  libgio-2.0-0.dll
+  libglib-2.0-0.dll
+  libgmodule-2.0-0.dll
+  libgobject-2.0-0.dll
+  libgthread-2.0-0.dll
+  libgtk-win32-2.0-0.dll
+  libpango-1.0-0.dll
+  libpangocairo-1.0-0.dll
+  libpangoft2-1.0-0.dll
+  libpangowin32-1.0-0.dll
+  libpng12-0.dll
+  libssl32.dll
+  libtiff3.dll
+  zlib1.dll
+  build/win32/sdispatch.exe
+  build/win32/etc/   (copy whole directory)
+  ui.xml
+  sdispatch.conf.win
+
+  
+  Then rename sdispatch.conf.win to sdispatch.conf
+
+
+
+---------------------------------------------------------------------
+
+
+// vim:ts=2:expandtab:textwidth=75

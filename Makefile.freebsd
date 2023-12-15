@@ -1,0 +1,44 @@
+# http://twilightfantasy.org
+
+BUILD_DIR=freebsd
+CONFIG_DIR=/etc
+DATA_DIR=/usr/share/sdispatch
+BIN_DIR=/usr/bin
+CC=gcc
+#-g -pg  -- for debugging
+CFLAGS=-D_FILE_OFFSET_BITS=64 -c -Wall -Werror -Isrc -Isrc/ui/gtk `pkg-config --cflags gtk+-2.0`
+LDFLAGS=-export-dynamic `pkg-config --libs gtk+-2.0` -lssl -lpthread
+
+COBJECTS:=$(patsubst src/%.c,build/$(BUILD_DIR)/%.o,$(wildcard src/*.c)) \
+  $(patsubst src/ui/gtk/%.c,build/$(BUILD_DIR)/ui/gtk/%.o,$(wildcard src/ui/gtk/*.c))
+
+
+EXECUTABLE=build/$(BUILD_DIR)/sdispatch
+
+
+all: $(COBJECTS) $(EXECUTABLE)
+
+$(EXECUTABLE): $(COBJECTS)
+	$(CC) $(COBJECTS) $(LDFLAGS) -o $@
+
+build/$(BUILD_DIR)/%.o: src/%.c
+	$(CC) $(CFLAGS) $< -o $@
+
+build/$(BUILD_DIR)/ui/gtk/%.o: src/ui/gtk/%.c
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -v $(COBJECTS) $(EXECUTABLE)
+
+install:
+	install -d $(BUILD_DIR)
+	install build/$(BUILD_DIR)/sdispatch $(BIN_DIR)/sdispatch
+	install -d $(DATA_DIR)
+	install ui.xml $(DATA_DIR)/ui.xml
+	install -d $(CONFIG_DIR)
+	install sdispatch.conf $(CONFIG_DIR)/sdispatch.conf
+
+uninstall:
+	rm  $(BIN_DIR)/sdispatch
+	rm  -r $(DATA_DIR)
+	rm  $(CONFIG_DIR)/sdispatch.conf

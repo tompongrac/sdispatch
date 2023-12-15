@@ -1,0 +1,5 @@
+sdispatch/0.9.1
+
+  - fixed the gtk file chooser infinate loading on FreeBSD 7.2
+  - reversed connection methods (forgot to after an implementation change)
+    note: this will cause version <= 0.9 to be incompatible with >= 0.9.1

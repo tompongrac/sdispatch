@@ -1,0 +1,7 @@
+OpenSSL searches the CA path to verify a peer certificate by comparing
+the certiciates hash, with the file name. The file name also needs to
+have an extention which is an iterator. E.g. .0
+
+A Solution:
+
+  $ ln -s cert_to_verify.pem $(openssl x509 -noout -hash -in cert_to_verify.pem).0

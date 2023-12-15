@@ -1,0 +1,59 @@
+---------------------------------------------------------------------
+
+                        SECURE DISPATCH
+
+                 A lightweight tool for secure 
+                       file distribution
+
+                   Copyright (c) Thomas Pongrac
+
+             Website: http://sdispatch.sourceforge.net
+
+---------------------------------------------------------------------
+
+A secure file transfer program that is designed be very flexible in the
+way it handles connections. It allows you to operate and take control over
+the program to make it do what you need it to do. It is designed to be
+more of a 'dumb' tool, but very powerful when configured properly as it
+doesn't have to make guesses for you. It allows multiple peers to send
+files to each other through a very basic out-of-band protocol. Each file
+transfers has configurable connection methods, acquires a peers verdict
+and optionally secured with PKI.
+
+
+
+DEPENDENCIES
+
+  - libpthread (UNIX)
+  - openssl
+  - gtk+ >= 2.0
+
+
+
+LICENCE
+
+  GNU General Public Licence
+
+
+
+INSTALL
+
+  See INSTALL
+
+
+
+USER MANUAL
+
+  View on the sourceforge site
+
+
+
+AUTHOR
+
+  Thomas Pongrac <xplagu3@gmail.com>
+
+
+
+---------------------------------------------------------------------
+
+// vim:ts=2:expandtab:textwidth=75
